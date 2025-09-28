@@ -7,69 +7,82 @@
     VIS.drawStarbucksBarChart = function (container, data, opts = {}) {
         if (!container) return;
 
-        // 配置
-        const width = opts.width || 900;
-        const height = opts.height || 420;
-        const margin = Object.assign({ top: 40, right: 24, bottom: 120, left: 70 }, opts.margin || {});
+        // config
+        const width = opts.width || 980;
+        const height = opts.height || 460;
+        // 响应式 margin（小屏更紧凑）
+        const isSmall = window.matchMedia && window.matchMedia("(max-width: 48em)").matches;
+
+        const baseMargin = isSmall
+            ? { top: 44, right: 16, bottom: 90, left: 60 }   // 小屏
+            : { top: 80, right: 24, bottom: 120, left: 70 }; // 大屏
+
+        const margin = Object.assign({}, baseMargin, opts.margin || {});
+
         const innerW = width - margin.left - margin.right;
         const innerH = height - margin.top - margin.bottom;
 
-        // 排序：从大到小
+        // data
         const sorted = [...data].sort((a, b) => b.count - a.count);
 
-        // 清空容器
+        // reset
         container.innerHTML = "";
 
-        // 创建 SVG
+        // svg + group
         const svg = createSVG(width, height, { role: "img", "aria-label": "Bar chart of Starbucks store counts by city" });
-
-        // 主分组
         const g = createEl("g", { transform: `translate(${margin.left},${margin.top})` }, svg);
 
-        // 计算比例尺
-        const maxV = Math.max(...sorted.map(d => d.count));
-        const xStep = innerW / sorted.length * 1.5;
+        // title (centered, on <svg>)
+        const title = text(svg, "Top 20 Cities with the Most Starbucks", width / 2, 24, {
+            "text-anchor": "middle",
+            "font-weight": 800,
+            fill: "#006241",
+            class: "chart-title"
+        });
 
-        // y 线性比例尺
-        const y = vmap(0, maxV, innerH, 0);
 
-        // 网格线
-        const gridCount = 5;
-        for (let i = 0; i <= gridCount; i++) {
-            const value = (maxV / gridCount) * i;
-            const yPos = y(value);
-            line(g, 0, yPos, innerW, yPos, { stroke: "#e6e6e6" });
-            text(g, String(Math.round(value)), -10, yPos + 4, { textAnchor: "end", fontSize: 11, fill: "#555" });
+        // layout
+        const xStep = (innerW / sorted.length) * 1.5;
+        const barW = xStep * 0.5;
+
+        // Y axis fixed to 0..200 with ticks every 50
+        const yMax = 200;
+        const tickStep = 50;
+        const y = vmap(0, yMax, innerH, 0);
+
+        // grid + tick labels (0, 50, 100, 150, 200)
+        for (let v = 0; v <= yMax; v += tickStep) {
+            const yPos = y(v);
+            line(g, 0, yPos, innerW, yPos, { stroke: "#DCDCDC" });
+            text(g, String(v), -10, yPos + 4, { "text-anchor": "end", "font-size": 11, fill: "#555" });
         }
 
-        // 柱子
-        const barW = xStep * 0.5; // 留出间距
-
+        // bars
         sorted.forEach((d, i) => {
-            const h = innerH - y(d.count);
+            const valueForDraw = Math.min(d.count, yMax);
+            const h = innerH - y(valueForDraw);
+            const yTop = y(valueForDraw);
             const x = i * xStep + (xStep - barW) / 2;
-            const yTop = y(d.count);
-            rect(g, x, yTop, barW, h, { fill: "#006241" }); // 绿色
 
-            // 数值标签
+            rect(g, x, yTop, barW, h, { fill: "#006241" });
+
+            // value label (above bar)
             text(g, String(d.count), x + barW / 2, yTop - 6, {
-                textAnchor: "middle",
-                fontSize: 12,
+                "text-anchor": "middle",
+                "font-size": 12,
                 fill: "#333"
             });
 
-            // x 轴标签（城市）
-            const cityLabel = `${d.city}`;
-            const label = createEl("text", {
+            // x labels (city + state)
+            const cityLabel = createEl("text", {
                 x: x + barW / 2,
                 y: innerH + 18,
                 "text-anchor": "middle",
                 "font-size": 12,
                 fill: "#333"
             }, g);
-            label.textContent = cityLabel;
+            cityLabel.textContent = d.city;
 
-            // 第二行州缩写
             const stateLabel = createEl("text", {
                 x: x + barW / 2,
                 y: innerH + 36,
@@ -80,9 +93,31 @@
             stateLabel.textContent = d.state;
         });
 
-        // 轴标题
-        text(g, "Number of Starbucks stores", -50, -30, { fontSize: 13, fill: "#222" });
+        // y-axis label (optional; kept as your color)
+        text(g, "Number of Starbucks stores", -50, -30, {
+            "font-size": 13,
+            fill: "#222"
+        });
 
+        // 数据来源（放在 g 内，位于图表下方）
+        const srcX = innerW / 2;
+        const srcY = innerH + 80; // 与下方标签的间距，可按需微调
+
+        // 可点击链接（现代浏览器支持在 <svg> 里用 <a href>）
+        const link = createEl("a", {
+            href: "https://cafely.com/blogs/research/starbucks-statistics?srsltid=AfmBOooTrTNOxZ3IKNzvPeaSDOHOcJ7z-D8Qc1mjzHkhyzcvHUME1fqT",
+            target: "_blank",
+            rel: "noopener"
+        }, g);
+
+        const srcText = createEl("text", {
+            x: 0,
+            y: srcY,
+            "text-anchor": "start",
+            "font-size": 11,
+            fill: "#777"
+        }, link);
+        srcText.textContent = "Data source: https://cafely.com/blogs/research/starbucks-statistics?srsltid=AfmBOooTrTNOxZ3IKNzvPeaSDOHOcJ7z-D8Qc1mjzHkhyzcvHUME1fqT";
 
 
         container.appendChild(svg);

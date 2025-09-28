@@ -6,27 +6,41 @@
     <title>Sienna Wu — Visualizations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
-    <header class="site-header">
-        <h1>Visualization Portfolio</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a aria-current="page">Visualizations</a>
-        </nav>
+    <header id="top">
+        <div class="navbar">
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+
+            <label for="menu-toggle" class="menu-toggle">☰</label>
+
+            <div class="name-logo">
+                <a class="logo-link" href="index.html" rel="noopener noreferrer" aria-label="Sienna Wu, go to homepage">
+                    <span>Sienna Wu</span>
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a>
+                </li>
+
+            </ul>
+        </div>
     </header>
 
     <main>
         <!-- 简单可视化容器 -->
         <section aria-labelledby="simple-viz-title">
-            <h2 id="simple-viz-title">Simple Visualization</h2>
+            <h1 id="simple-viz-title">Data Visualization</h1>
             <div id="simple-viz-container"></div>
         </section>
 
         <!-- 复杂/动态可视化容器 -->
         <section aria-labelledby="complex-viz-title">
-            <h2 id="complex-viz-title">Complex / Interactive Visualization</h2>
+            <h1 id="complex-viz-title">Cat Expression Toggle</h1>
             <div id="cat-container">
                 <svg width="500" height="500" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -351,16 +365,47 @@
                 </svg>
 
             </template>
+
+            <div class="cat-actions">
+                <button id="cat-toggle-btn" type="button" aria-controls="cat-container">
+                    Open my mouth
+                </button>
+            </div>
         </section>
     </main>
 
-    <footer class="site-footer">
-        <p>© 2025 Sienna Wu</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Sienna Wu. Designed & Developed by me</p>
+
+            <ul class="footer-links">
+                <li>
+                    <a href="mailto:xwa250@sfu.ca" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/sienna-wu-524033268/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Sienna0429/IAT339-Portfolio" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#top" aria-label="Back to top">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </footer>
-
-
-    <script src="vis.js" defer></script>
-    <script src="main.js" defer></script>
 </body>
+
+<script src="vis.js" defer></script>
+<script src="main.js" defer></script>
+
 
 </html>

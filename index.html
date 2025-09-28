@@ -2,59 +2,190 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sienna Wu - Personal Website</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>Sienna Bio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
+    <header id="top">
+        <div class="navbar">
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
 
-    <!-- Header -->
-    <header>
-        <h1>Sienna Wu</h1>
-        <p>SIAT Major | UX/UI Design Enthusiast | Exploring Web Development</p>
-        <img src="images/personal_photo.JPG" alt="Photo of Sienna Wu">
-        <a href="visualizations.html">Visualizations</a>
+            <label for="menu-toggle" class="menu-toggle">☰</label>
+
+            <div class="name-logo">
+                <a class="logo-link" href="index.html" rel="noopener noreferrer" aria-label="Sienna Wu, go to homepage">
+                    <span>Sienna Wu</span>
+                </a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="visualizations.html">Visualization Project</a>
+                </li>
+
+            </ul>
+        </div>
     </header>
 
-    <!-- Education -->
-    <section>
-        <h2>Education</h2>
-        <ul>
-            <li>Simon Fraser University - Major in Interactive Arts & Technology</li>
-        </ul>
-    </section>
+    <div class="page-wrapper">
+        <section class="profile">
+            <h1>About Me</h1>
+            <div class="bio">
+                <div class="bio-text">
+                    <h2>👋 Hi there!</h2>
 
-    <!-- Skills -->
-    <section>
-        <h2>Skills</h2>
-        <ul>
-            <li>UX/UI Design (Figma, Adobe XD)</li>
-            <li>Front-end (HTML, CSS, JavaScript basics)</li>
-            <li>Graphic Design (Adobe Illustrator, Photoshop)</li>
-            <li>Photography & Visual Storytelling</li>
-        </ul>
-    </section>
+                    <p class="intro-text">I'm Sienna Wu, a passionate UX/UI designer studying Interactive Arts &
+                        Technology
+                        at Simon Fraser
+                        University. </p>
+                    <p>I take
+                        a
+                        user-centered
+                        approach to design, focusing on creating seamless and engaging interactions that enhance overall
+                        user
+                        experiences. </p>
+                    <p>From
+                        research and ideation to prototyping and testing, I follow an iterative design process to
+                        develop
+                        thoughtful
+                        solutions
+                        that meet users' needs. I believe great design extends beyond screens—it's about crafting
+                        meaningful
+                        experiences
+                        that
+                        connect people with their environment in intuitive and enjoyable ways.</p>
 
-    <!-- Experience -->
-    <section>
-        <h2>Experience</h2>
-        <ul>
-            <li>Communications Assistant – BC Ministry of Agriculture</li>
-            <li>Product Operations Intern – NetEase Youdao</li>
-            <li>Design Projects – UX/UI prototypes, posters, microsites</li>
-        </ul>
-    </section>
+                    <p class="skills-paragraph">
+                        <span class="skills-label">Core Skills:</span> Figma, Illustrator, Prototyping, User Interviews,
+                        Journey Mapping, Wireframing, Usability Testing
+                    </p>
+                </div>
 
-    <!-- Contact -->
-    <section>
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/your-linkedin"
-                target="_blank">linkedin.com/in/your-linkedin</a></p>
-        <p>GitHub: <a href="https://github.com/sienna" target="_blank">github.com/sienna</a></p>
-    </section>
+                <div class="img-and-contact">
+                    <img src="images/personal_photo.JPG" alt="Sienna's bio photo" width="660" height="610" srcset="
+                images/personal_photo.JPG 400w,
+                images/personal_photo.JPG 660w
+              " sizes="(max-width: 48em) 90vw, 400px">
 
+                    <p class="contact-me">
+                        <a href="index.html">
+                            <span class="arrow-icon">→</span>
+                            <a href="#contact"><span>Feel free to contact me!</span></a>
+
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="lets-talk">
+                <div class="box-blue hidden"></div>
+                <div class="box-brown hidden"></div>
+                <h2>Let's Talk</h2>
+            </div>
+
+
+            <form class="contact-info">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </section>
+
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Sienna Wu. Designed & Developed by me</p>
+
+            <ul class="footer-links">
+                <li>
+                    <a href="mailto:xwa250@sfu.ca" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/sienna-wu-524033268/" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Sienna0429/IAT339-Portfolio" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#top" aria-label="Back to top">
+                        <i class="fas fa-arrow-up"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
 </body>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const image = document.querySelector('.project-image');
+        const infoBox = document.querySelector('.info-box');
+
+
+        if (image) image.classList.add('hidden');
+        if (infoBox) infoBox.classList.add('hidden');
+
+        const observerImageInfo = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    entry.target.classList.remove('hidden');
+                    observerImageInfo.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        if (image) observerImageInfo.observe(image);
+        if (infoBox) observerImageInfo.observe(infoBox);
+    });
+</script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const revealBoxes = document.querySelectorAll('.box-blue, .box-brown');
+
+        const observerBoxes = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    entry.target.classList.remove('hidden');
+                    observerBoxes.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        revealBoxes.forEach(box => observerBoxes.observe(box));
+    });
+</script>
+
 
 </html>

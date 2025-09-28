@@ -1,61 +1,372 @@
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
-    line-height: 1.6;
-    background-color: #fafafa;
-    color: #333;
-}
-
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-header h1 {
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-size: 2.5em;
-    color: #444;
+    padding: 0;
 }
 
-header p {
-    font-size: 1.2em;
-    color: #666;
+html {
+    font-family: "Cormorant", sans-serif;
+    color: #b52a11;
 }
 
-header img {
-    margin-top: 20px;
-    max-width: 200px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.page-wrapper {
+    max-width: 80rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Sections */
+body {
+    background-color: #e8e3dd;
+}
+
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+li {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
 section {
-    margin-bottom: 40px;
+    margin-bottom: 4rem;
 }
 
-section h2 {
-    font-size: 1.5em;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-    color: #333;
+h1 {
+    font-family: "Cormorant";
+    margin-top: 5rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
-ul {
-    list-style-type: square;
-    padding-left: 20px;
+h2 {
+    font-family: "Cormorant";
+    font-weight: 300;
+    margin-top: 1rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 a {
-    color: #094d1c;
+    color: inherit;
     text-decoration: none;
 }
 
-a:hover {
+.navbar {
+    font-family: "Montserrat", sans-serif;
+    background-color: #e8e3dd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    z-index: 1000;
+}
+
+.name-logo a {
+    font-family: "Chalkboard";
+    font-weight: lighter;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.menu-checkbox {
+    display: none;
+}
+
+.nav-links li a {
+    color: #b52a11;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+}
+
+.nav-links li a:hover,
+.nav-links li a:focus {
+    color: #5d3c11;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #b52a11;
+    cursor: pointer;
+}
+
+.bio {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.bio img {
+    width: auto;
+    height: 50vh;
+    border-radius: 10px;
+}
+
+.bio p {
+    max-width: 40vw;
+}
+
+.bio h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.skills-label {
+    font-weight: bold;
+}
+
+.skills-paragraph {
+    margin-top: 1rem;
+}
+
+.img-and-contact {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-me {
+    font-style: italic;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.contact-me a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.contact-me a:hover,
+.contact-me a:focus {
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: font-size 0.2s ease-in-out;
+    color: #5d3c11;
+}
+
+.contact-me .arrow-icon {
+    margin-right: 0.5rem;
+    color: #b52a11;
+    font-size: 2rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.contact-me a:hover .arrow-icon,
+.contact-me a:focus .arrow-icon {
+    color: #5d3c11;
+}
+
+/* Contact me */
+/* Let's talk */
+.contact {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    padding: 3rem;
+}
+
+.lets-talk h2 {
+    z-index: 2;
+    margin: 0;
+}
+
+.lets-talk {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.box-blue,
+.box-brown {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    width: 20vw;
+    height: 20vh;
+    transition: opacity 0.6s ease;
+}
+
+.hidden.box-blue {
+    transform: translate(-30%, -30%) scale(0.95);
+}
+
+.hidden.box-brown {
+    transform: translate(30%, 30%) scale(0.95);
+}
+
+.box-blue.reveal {
+    animation: flyInBlue 1s ease-out forwards;
+}
+
+.box-brown.reveal {
+    animation: flyInBrown 1s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.box-blue {
+    background-color: rgba(85, 119, 164, 0.5);
+    top: 35%;
+    left: 30%;
+}
+
+.box-brown {
+    background-color: rgba(93, 60, 17, 0.8);
+    bottom: 20%;
+    right: 15%;
+    width: 10vw;
+    height: 15vh;
+}
+
+@keyframes flyInBlue {
+    from {
+        transform: translate(-30%, -30%) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-30%, -30%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes flyInBrown {
+    from {
+        transform: translate(30%, 30%) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(30%, 30%) scale(1);
+        opacity: 1;
+    }
+}
+
+.contact-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-info input,
+.contact-info textarea {
+    width: 90%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-info button {
+    width: 20%;
+    padding: 1rem;
+    border: none;
+    background-color: #b52a11;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 auto;
+}
+
+.contact-info button:hover {
+    background-color: #5d3c11;
+    color: #fff;
+}
+
+.footer {
+    font-family: "Cormorant", sans-serif;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #e8e3dd;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #5d3c11;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.4rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-links li {
+    font-size: 1rem;
+
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #5d3c11;
+    font-size: 1.5rem;
+}
+
+.footer-links a:hover {
     text-decoration: underline;
+}
+
+/* Visualization Page */
+
+main {
+    margin-top: 8rem;
+}
+
+#simple-viz-title {
+    margin-bottom: 20px;
+}
+
+/* 调大/调小都可以 */
+#simple-viz-container {
+    margin-top: 0;
+}
+
+.site-header {
+    margin-bottom: 32px;
 }
 
 .cat-svg {
@@ -68,3 +379,334 @@ a:hover {
     max-width: 360px;
     height: auto;
 }
+
+#cat-container {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#simple-viz-container {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* 让按钮容器居中对齐 */
+.cat-actions {
+    text-align: center;
+    margin-top: 12px;
+    /* 与小猫之间留一点间距 */
+}
+
+
+#cat-toggle-btn {
+    width: 15%;
+    padding: 1rem;
+    border: none;
+    background-color: #b52a11;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0 auto;
+}
+
+#cat-toggle-btn:hover {
+    background-color: #5d3c11;
+    color: #fff;
+}
+
+/* Responsive */
+
+@media (max-width: 65em) {
+    h1 {
+        font-size: 2rem;
+        margin-top: 20vh;
+    }
+
+    section {
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .intro {
+        height: auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .box {
+        width: 35vw;
+        height: 25vh;
+        left: 40%;
+        top: 30%
+    }
+
+    .scroll-hint {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1.5rem;
+        animation: bounce 1.5s infinite;
+        opacity: 0.5;
+    }
+
+    .arrow-down {
+        font-size: 2rem;
+    }
+
+    .project-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 90vw;
+        margin: 0 auto;
+    }
+
+    .project-content>img {
+        width: 60vw;
+        height: auto;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .info-box {
+        width: 60vw;
+        height: auto;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .read-more {
+        font-size: 0.7rem;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .contact {
+        grid-template-columns: 1fr;
+        align-items: center;
+        padding: 2rem 1rem;
+        gap: 1rem;
+    }
+
+    .lets-talk h2 {
+        text-align: center;
+    }
+
+    .box-blue,
+    .box-brown {
+        display: none;
+    }
+
+    .contact-info {
+        order: 2;
+        width: 100%;
+        max-width: 80%;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .contact-info input,
+    .contact-info textarea {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .contact-info label {
+        font-size: 0.95rem;
+        width: 100%;
+        text-align: left;
+    }
+
+    .contact-info button {
+        width: 50%;
+        font-size: 0.8rem;
+    }
+
+    .footer {
+        font-size: 0.95rem;
+        padding: 1.8rem 1rem;
+    }
+
+    .footer-links a {
+        font-size: 1.3rem;
+    }
+
+
+}
+
+@media (max-width: 48em) {
+    section {
+        margin-bottom: 2rem;
+    }
+
+    h1 {
+        margin-top: 10vh;
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 3.5rem;
+        left: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        background: #e8e3dd;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 998;
+    }
+
+    .menu-checkbox:checked+.menu-toggle+.name-logo+.nav-links {
+        display: flex;
+    }
+
+    .nav-links li a {
+        color: #b52a11;
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    .name-logo {
+        text-align: center;
+        flex: 1;
+    }
+
+    .name-logo p {
+        font-size: 1rem;
+    }
+
+    .box {
+        width: 35vw;
+        height: 18vh;
+        left: 45%;
+        top: 30%
+    }
+
+    .bio {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .bio-text h2 {
+        margin-bottom: 1rem;
+        margin: auto;
+        text-align: center;
+    }
+
+    .bio p {
+        max-width: 90vw;
+        margin: 1rem 2rem;
+    }
+
+    .bio img {
+
+        width: 80vw;
+        height: auto;
+        order: -1;
+    }
+
+    .contact-me {
+        text-align: center;
+    }
+
+    .footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .footer-content {
+        padding: 0 1rem;
+    }
+
+
+    .footer-links a {
+        font-size: 1.2rem;
+    }
+
+    main {
+        margin-top: 4rem;
+    }
+
+    section {
+        margin-bottom: 32px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #simple-viz-title {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .site-header {
+        margin-bottom: 16px;
+    }
+
+    /* 标题略小 */
+
+    /* 让 SVG 随容器宽度缩放铺满 */
+    #simple-viz-container svg,
+    #cat-container svg {
+        width: 100%;
+    }
+
+    #simple-viz-container {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    /* 图表文字在小屏更易读 */
+    #simple-viz-title {
+        font-size: 1.2rem;
+    }
+
+    /* 猫咪按钮在小屏更易点击，如果有这个按钮 */
+    #cat-toggle-btn {
+        width: 100%;
+        padding: 12px 14px;
+    }
+
+}
+
+
+
+
+
+/* Visualation page responsive */

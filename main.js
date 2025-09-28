@@ -1,7 +1,14 @@
-// main.js
 document.addEventListener("DOMContentLoaded", () => {
+    // ==== Starbucks chart ====
     const simpleEl = document.getElementById("simple-viz-container");
-    if (simpleEl && window.VIS && typeof window.VIS.drawStarbucksBarChart === "function") {
+
+    // 安全检查：函数是否存在、容器是否存在
+    const canDraw =
+        simpleEl &&
+        window.VIS &&
+        typeof window.VIS.drawStarbucksBarChart === "function";
+
+    if (canDraw) {
         const data = [
             { city: "New York", state: "NY", count: 191 },
             { city: "Chicago", state: "IL", count: 186 },
@@ -25,42 +32,78 @@ document.addEventListener("DOMContentLoaded", () => {
             { city: "Columbus", state: "OH", count: 69 }
         ];
 
-        window.VIS.drawStarbucksBarChart(simpleEl, data, {
-            width: 980,
-            height: 460,
-            margin: { top: 50, right: 24, bottom: 120, left: 70 }
+        const mql = window.matchMedia("(max-width: 48em)");
+
+        function renderChart() {
+            // 不再从 main.js 传 margin —— 完全交给 vis.js 里的 baseMargin 处理
+            window.VIS.drawStarbucksBarChart(simpleEl, data, {
+                width: 980,
+                height: 460
+                // 如果你只想自定义左右间距，可这样传但不要传 top/bottom：
+                // margin: { left: 70, right: 24 }
+            });
+        }
+
+        renderChart();
+        // 断点变化时重绘（新浏览器）
+        if (mql.addEventListener) mql.addEventListener("change", renderChart);
+        // 兼容旧 Safari
+        else if (mql.addListener) mql.addListener(renderChart);
+        // 可选：窗口尺寸变化也重绘
+        // window.addEventListener("resize", renderChart);
+    } else {
+        // 如果图没出来，打开控制台看看这里打印
+        console.warn("Chart not drawn:", {
+            simpleElExists: !!simpleEl,
+            hasVIS: !!window.VIS,
+            fnType: typeof window.VIS?.drawStarbucksBarChart
         });
     }
 
+    // ==== Cat expression toggle ====
     const box = document.getElementById("cat-container");
     const tplOpen = document.getElementById("cat-open-template");
 
-    if (!box || !tplOpen) return;
+    // 如果猫的元素不存在，不要 return；直接跳过这部分即可
+    if (box && tplOpen) {
+        const closedNode = box.firstElementChild
+            ? box.firstElementChild.cloneNode(true)
+            : null;
+        const openNode = tplOpen.content.firstElementChild
+            ? tplOpen.content.firstElementChild.cloneNode(true)
+            : null;
+        if (closedNode && openNode) {
+            let isOpen = false;
 
-    // 记录初始的“闭嘴”版本，用于切回
-    const closedHTML = box.innerHTML.trim();
-    const openHTML = tplOpen.innerHTML.trim();
-    let isOpen = false;
-
-    // 点击切换
-    box.addEventListener("click", () => {
-        if (isOpen) {
-            box.innerHTML = closedHTML;
+            box.replaceChildren(closedNode.cloneNode(true));
             box.setAttribute("aria-label", "Cat, mouth closed");
-        } else {
-            box.innerHTML = openHTML;
-            box.setAttribute("aria-label", "Cat, mouth open");
-        }
-        isOpen = !isOpen;
-    });
+            box.style.cursor = "pointer";
+            box.setAttribute("tabindex", "0");
 
-    // 键盘切换，提升可达性
-    box.setAttribute("tabindex", "0");
-    box.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            box.click();
+            function toggleCat() {
+                if (isOpen) {
+                    box.replaceChildren(closedNode.cloneNode(true));
+                    box.setAttribute("aria-label", "Cat, mouth closed");
+                } else {
+                    box.replaceChildren(openNode.cloneNode(true));
+                    box.setAttribute("aria-label", "Cat, mouth open");
+                }
+                isOpen = !isOpen;
+
+                const btn = document.getElementById("cat-toggle-btn");
+                if (btn) btn.textContent = isOpen ? "Close mouth" : "Open mouth";
+            }
+
+            box.addEventListener("click", toggleCat);
+            box.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleCat();
+                }
+            });
+
+            const btn = document.getElementById("cat-toggle-btn");
+            if (btn) btn.addEventListener("click", toggleCat);
         }
-    });
+    }
 });
-
