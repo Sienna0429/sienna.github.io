@@ -189,7 +189,6 @@ a {
     color: #5d3c11;
 }
 
-/* Contact me */
 /* Let's talk */
 .contact {
     position: relative;
@@ -202,6 +201,8 @@ a {
 .lets-talk h2 {
     z-index: 2;
     margin: 0;
+    font-size: 2rem;
+
 }
 
 .lets-talk {
@@ -252,6 +253,10 @@ a {
     right: 15%;
     width: 10vw;
     height: 15vh;
+}
+
+.contact-info label {
+    font-size: 1.2rem;
 }
 
 @keyframes flyInBlue {
@@ -360,7 +365,7 @@ main {
     margin-bottom: 20px;
 }
 
-/* 调大/调小都可以 */
+
 #simple-viz-container {
     margin-top: 0;
 }
@@ -390,11 +395,10 @@ main {
     margin: 0 auto;
 }
 
-/* 让按钮容器居中对齐 */
+
 .cat-actions {
     text-align: center;
     margin-top: 12px;
-    /* 与小猫之间留一点间距 */
 }
 
 
@@ -438,52 +442,7 @@ main {
         padding-bottom: 2rem;
     }
 
-    .box {
-        width: 35vw;
-        height: 25vh;
-        left: 40%;
-        top: 30%
-    }
 
-    .scroll-hint {
-        position: absolute;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.5rem;
-        animation: bounce 1.5s infinite;
-        opacity: 0.5;
-    }
-
-    .arrow-down {
-        font-size: 2rem;
-    }
-
-    .project-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        max-width: 90vw;
-        margin: 0 auto;
-    }
-
-    .project-content>img {
-        width: 60vw;
-        height: auto;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .info-box {
-        width: 60vw;
-        height: auto;
-        border-radius: 0 0 10px 10px;
-    }
-
-    .read-more {
-        font-size: 0.7rem;
-        bottom: 1rem;
-        right: 1rem;
-    }
 
     .contact {
         grid-template-columns: 1fr;
@@ -608,12 +567,6 @@ main {
         font-size: 1rem;
     }
 
-    .box {
-        width: 35vw;
-        height: 18vh;
-        left: 45%;
-        top: 30%
-    }
 
     .bio {
         display: flex;
@@ -679,9 +632,7 @@ main {
         margin-bottom: 16px;
     }
 
-    /* 标题略小 */
 
-    /* 让 SVG 随容器宽度缩放铺满 */
     #simple-viz-container svg,
     #cat-container svg {
         width: 100%;
@@ -692,21 +643,15 @@ main {
         margin-bottom: 0;
     }
 
-    /* 图表文字在小屏更易读 */
+
     #simple-viz-title {
         font-size: 1.2rem;
     }
 
-    /* 猫咪按钮在小屏更易点击，如果有这个按钮 */
+
     #cat-toggle-btn {
         width: 100%;
         padding: 12px 14px;
     }
 
 }
-
-
-
-
-
-/* Visualation page responsive */

@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ==== Starbucks chart ====
     const simpleEl = document.getElementById("simple-viz-container");
 
-    // 安全检查：函数是否存在、容器是否存在
     const canDraw =
         simpleEl &&
         window.VIS &&
@@ -35,24 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const mql = window.matchMedia("(max-width: 48em)");
 
         function renderChart() {
-            // 不再从 main.js 传 margin —— 完全交给 vis.js 里的 baseMargin 处理
             window.VIS.drawStarbucksBarChart(simpleEl, data, {
                 width: 980,
                 height: 460
-                // 如果你只想自定义左右间距，可这样传但不要传 top/bottom：
-                // margin: { left: 70, right: 24 }
             });
         }
 
         renderChart();
-        // 断点变化时重绘（新浏览器）
         if (mql.addEventListener) mql.addEventListener("change", renderChart);
-        // 兼容旧 Safari
         else if (mql.addListener) mql.addListener(renderChart);
-        // 可选：窗口尺寸变化也重绘
-        // window.addEventListener("resize", renderChart);
     } else {
-        // 如果图没出来，打开控制台看看这里打印
         console.warn("Chart not drawn:", {
             simpleElExists: !!simpleEl,
             hasVIS: !!window.VIS,
@@ -60,11 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ==== Cat expression toggle ====
+    //Cat expression toggle
     const box = document.getElementById("cat-container");
     const tplOpen = document.getElementById("cat-open-template");
 
-    // 如果猫的元素不存在，不要 return；直接跳过这部分即可
     if (box && tplOpen) {
         const closedNode = box.firstElementChild
             ? box.firstElementChild.cloneNode(true)

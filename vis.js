@@ -1,4 +1,3 @@
-// ====== Simple Bar Chart: Starbucks counts by city ======
 (function () {
 
     const VIS = window.VIS || {};
@@ -10,12 +9,11 @@
         // config
         const width = opts.width || 980;
         const height = opts.height || 460;
-        // 响应式 margin（小屏更紧凑）
         const isSmall = window.matchMedia && window.matchMedia("(max-width: 48em)").matches;
 
         const baseMargin = isSmall
-            ? { top: 44, right: 16, bottom: 90, left: 60 }   // 小屏
-            : { top: 80, right: 24, bottom: 120, left: 70 }; // 大屏
+            ? { top: 44, right: 16, bottom: 90, left: 60 }
+            : { top: 80, right: 24, bottom: 120, left: 70 };
 
         const margin = Object.assign({}, baseMargin, opts.margin || {});
 
@@ -99,11 +97,9 @@
             fill: "#222"
         });
 
-        // 数据来源（放在 g 内，位于图表下方）
         const srcX = innerW / 2;
-        const srcY = innerH + 80; // 与下方标签的间距，可按需微调
+        const srcY = innerH + 80;
 
-        // 可点击链接（现代浏览器支持在 <svg> 里用 <a href>）
         const link = createEl("a", {
             href: "https://cafely.com/blogs/research/starbucks-statistics?srsltid=AfmBOooTrTNOxZ3IKNzvPeaSDOHOcJ7z-D8Qc1mjzHkhyzcvHUME1fqT",
             target: "_blank",
@@ -123,7 +119,6 @@
         container.appendChild(svg);
     };
 
-    // ====== Helper functions ======
     function createSVG(w, h, attrs = {}) {
         const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         s.setAttribute("width", w);

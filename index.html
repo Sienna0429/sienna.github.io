@@ -139,33 +139,6 @@
 </body>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const image = document.querySelector('.project-image');
-        const infoBox = document.querySelector('.info-box');
-
-
-        if (image) image.classList.add('hidden');
-        if (infoBox) infoBox.classList.add('hidden');
-
-        const observerImageInfo = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    entry.target.classList.remove('hidden');
-                    observerImageInfo.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.3
-        });
-
-        if (image) observerImageInfo.observe(image);
-        if (infoBox) observerImageInfo.observe(infoBox);
-    });
-</script>
-
-
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
