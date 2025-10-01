@@ -72,12 +72,12 @@
               " sizes="(max-width: 48em) 90vw, 400px">
 
                     <p class="contact-me">
-                        <a href="index.html">
-                            <span class="arrow-icon">→</span>
-                            <a href="#contact"><span>Feel free to contact me!</span></a>
-
+                        <a href="#contact">
+                            <span class="arrow-icon" aria-hidden="true">→</span>
+                            <span>Feel free to contact me!</span>
                         </a>
                     </p>
+
                 </div>
             </div>
         </section>
@@ -136,29 +136,31 @@
             </ul>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const revealBoxes = document.querySelectorAll('.box-blue, .box-brown');
+
+            const observerBoxes = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        entry.target.classList.remove('hidden');
+                        observerBoxes.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            revealBoxes.forEach(box => observerBoxes.observe(box));
+        });
+    </script>
 </body>
 
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const revealBoxes = document.querySelectorAll('.box-blue, .box-brown');
 
-        const observerBoxes = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal');
-                    entry.target.classList.remove('hidden');
-                    observerBoxes.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.3
-        });
-
-        revealBoxes.forEach(box => observerBoxes.observe(box));
-    });
-</script>
 
 
 </html>
