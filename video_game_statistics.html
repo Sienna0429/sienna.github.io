@@ -63,7 +63,7 @@
                 <option value="Genre">Genre</option>
                 <option value="Publisher">Publisher</option>
             </select>
-            <label for="topN2" style="margin-left:12px;">Top N：</label>
+            <label for="topN2" style="margin-left:12px;">Top N:</label>
             <select id="topN2">
                 <option value="5">5</option>
                 <option value="8" selected>8</option>
@@ -75,7 +75,9 @@
         <div id="toplist-debug" style="min-height:180px; margin:8px 0;"></div>
 
         <div id="trend-unified"></div>
-        <p class="note">用下拉菜单切换分组字段与 Top N。可在图例上点击高亮某一组。</p>
+        <p class="note">Use the dropdown menu to switch between grouping fields and Top N. You can click on the legend
+            to highlight a specific
+            group.</p>
     </section>
 
     <!-- Reflection 2-->
@@ -152,7 +154,9 @@
             </div>
 
             <div id="genres-by-region"></div>
-            <p class="note">每列是一块区域（NA/EU/JP）。“Share”按区域内归一，看到“偏好”；“Total”看绝对销量。</p>
+            <p class="note">Each column represents a region (NA/EU/JP). “Share” is normalized within each region to show
+                preferences, while “Total”
+                displays absolute sales.</p>
         </section>
 
         <!-- Reflection 4-->
@@ -457,13 +461,12 @@
                                     { field: "Share", type: "quantitative", title: "Share", format: ".0%" }
                                 ]
                             },
-                            width: 280,
+                            width: 300,
                             height: { step: 18 }
                         }
                     };
                 }
 
-                // 渲染 + 交互
                 let topNGR = 8;
                 let metricGR = "share";
 
