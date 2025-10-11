@@ -21,6 +21,8 @@ html {
 
 body {
     background-color: #e8e3dd;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 
@@ -51,10 +53,11 @@ h2 {
     font-family: "Cormorant";
     font-weight: 300;
     margin-top: 1rem;
+    font-size: 2rem;
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 h4 {
@@ -431,13 +434,6 @@ main {
     margin-bottom: 20px;
 }
 
-.chart-card {
-    border-radius: 12px;
-    padding: 16px;
-    margin: 4rem 0 2rem 2rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-}
-
 .chart-title {
     font-weight: 700;
     margin: 0 0 8px;
@@ -449,14 +445,10 @@ main {
 
 .note {
     color: #666;
-    font-size: 14px;
+    margin: 0 0 1rem;
+    line-height: 1.6;
 }
 
-/* 让卡片与图表容器有实际尺寸 */
-.chart-card {
-    width: 100%;
-    display: block;
-}
 
 #heatmap,
 #stacked {
@@ -469,11 +461,33 @@ main {
     max-width: 100%;
 }
 
+/* 两种卡片统一宽度与样式：同样的 max-width，水平居中 */
+.chart-card,
 .reflection-chart-card {
     border-radius: 12px;
     padding: 16px;
-    margin: 4rem 0 2rem 2rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+    max-width: 1100px;
+    /* 卡片最大宽度一致 */
+    margin-left: auto;
+    /* 居中 */
+    margin-right: auto;
+    /* 居中 */
+}
+
+/* 只用 margin 控制“组内 vs 组间”的距离 */
+.chart-card {
+    margin-top: 3.5rem;
+    /* 组的开头：和上一个组拉开一点 */
+    margin-bottom: .75rem;
+    /* 组内：图 和 它的 Reflection 之间更紧凑 */
+}
+
+.reflection-chart-card {
+    margin-top: .5rem;
+    /* 组内：紧贴上一张图 */
+    margin-bottom: 3.5rem;
+    /* 组与组之间拉开距离 */
 }
 
 .note {

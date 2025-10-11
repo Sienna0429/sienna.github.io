@@ -107,8 +107,8 @@
             digital distribution, rather than an actual drop in player interest.
             This view helps connect historical console launches to market performance, showing how each generation
             rises, peaks, and
-            eventually fades as new technology arrives.
-
+            eventually fades as new technology arrives.</p>
+        <p class="note">
             When grouping by genre, the chart shows how the popularity of different types of games has changed over
             time.
             From a popularity perspective, Action and Sports games dominate global sales, showing that players
@@ -124,6 +124,8 @@
             Shooter genres grow rapidly after 2000. Around 2015, sales for all genres decline, again likely due to the
             shift to
             digital distribution rather than a drop in demand.
+        </p>
+        <p class="note">
             When grouping by publisher, this chart reveals how different companies have influenced the gaming market
             over time.
             From a market leadership perspective, Nintendo clearly dominates with the highest total sales and visible
@@ -142,13 +144,14 @@
             changes over
             decades and how business strategies evolve alongside technology shifts.
         </p>
+
     </section>
 
     <!-- Visualization 3 -->
     <section class="chart-card">
         <h2 class="chart-title">Regional Sales vs. Platform</h2>
         <div class="control">
-            <label for="topN-reg">Platforms (Top N)：</label>
+            <label for="topN-reg">Platforms (Top N):</label>
             <select id="topN-reg">
                 <option value="5">5</option>
                 <option value="8" selected>8</option>
@@ -189,401 +192,403 @@
             differences in gaming habits.
         </p>
 
-        <!-- Visualization 4 Story -->
-        <section class="chart-card">
-            <h2 class="chart-title">Favorite Genres by Region (NA / EU / JP)</h2>
+    </section>
 
-            <div class="control">
-                <label for="metric-gr">Metric:</label>
-                <select id="metric-gr">
-                    <option value="share" selected>Share within region</option>
-                    <option value="total">Total sales (M)</option>
-                </select>
+    <!-- Visualization 4 Story -->
+    <section class="chart-card">
+        <h2 class="chart-title">Favorite Genres by Region (NA / EU / JP)</h2>
 
-                <label for="topN-gr" style="margin-left:12px;">Top N:</label>
-                <select id="topN-gr">
-                    <option value="5">5</option>
-                    <option value="8" selected>8</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                </select>
-            </div>
+        <div class="control">
+            <label for="metric-gr">Metric:</label>
+            <select id="metric-gr">
+                <option value="share" selected>Share within region</option>
+                <option value="total">Total sales (M)</option>
+            </select>
 
-            <div id="genres-by-region"></div>
-            <p class="note">Each column represents a region (NA/EU/JP). “Share” is normalized within each region to show
-                preferences, while “Total”
-                displays absolute sales.</p>
-        </section>
+            <label for="topN-gr" style="margin-left:12px;">Top N:</label>
+            <select id="topN-gr">
+                <option value="5">5</option>
+                <option value="8" selected>8</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+        </div>
 
-        <!-- Reflection 4-->
-        <section class="reflection-chart-card">
-            <h3 class="chart-title">Reflection</h3>
-            <p class="note">
-                From the regional comparison perspective, clear differences emerge among North America, Europe, and
-                Japan. North America
-                and Europe both favor Action and Sports games, with Shooter also ranking high in North America. These
-                genres align with
-                Western markets‘ focus on competitive and fast-paced gameplay. Japan, however, shows a strong preference
-                for
-                Role-Playing and Platform games, which reflects the success of series like Pokémon and Super Mario.
+        <div id="genres-by-region"></div>
+        <p class="note">Each column represents a region (NA/EU/JP). “Share” is normalized within each region to show
+            preferences, while “Total”
+            displays absolute sales.</p>
+    </section>
 
-                From the cultural preference perspective, the chart reveals how gaming culture shapes regional markets.
-                Western players
-                tend to prefer realism and competition, while Japanese players value narrative-driven and
-                character-based experiences.
-                This difference not only reflects genre taste but also connects to hardware preferences seen
-                earlier—Japan’s handheld
-                consoles support more story-based and casual games.
-            </p>
+    <!-- Reflection 4-->
+    <section class="reflection-chart-card">
+        <h3 class="chart-title">Reflection</h3>
+        <p class="note">
+            From the regional comparison perspective, clear differences emerge among North America, Europe, and
+            Japan. North America
+            and Europe both favor Action and Sports games, with Shooter also ranking high in North America. These
+            genres align with
+            Western markets' focus on competitive and fast-paced gameplay. Japan, however, shows a strong preference
+            for
+            Role-Playing and Platform games, which reflects the success of series like Pokémon and Super Mario.
 
-            <script>
-                const dataUrl = "/data/videogames_wide.csv";
+            From the cultural preference perspective, the chart reveals how gaming culture shapes regional markets.
+            Western players
+            tend to prefer realism and competition, while Japanese players value narrative-driven and
+            character-based experiences.
+            This difference not only reflects genre taste but also connects to hardware preferences seen
+            earlier—Japan's handheld
+            consoles support more story-based and casual games.
+        </p>
 
-                const heatSpec = {
+        <script>
+            const dataUrl = "/data/videogames_wide.csv";
+
+            const heatSpec = {
+                $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+                data: { url: "/data/videogames_wide.csv" },
+                transform: [
+                    // only keep those without null value
+                    { filter: "datum.Global_Sales != null && datum.Genre != null && datum.Platform != null" },
+                    {
+                        aggregate: [
+                            { op: "sum", field: "Global_Sales", as: "TotalSales" }
+                        ],
+                        groupby: ["Genre", "Platform"]
+                    }
+                ],
+                mark: "rect",
+                encoding: {
+                    x: { field: "Genre", type: "nominal", sort: "-y", axis: { labelAngle: -30 }, title: "Genre" },
+                    y: { field: "Platform", type: "nominal", sort: "-x", title: "Platform" },
+                    color: { field: "TotalSales", type: "quantitative", title: "Global Sales (M)" },
+                    tooltip: [
+                        { field: "Genre", title: "Genre" },
+                        { field: "Platform", title: "Platform" },
+                        { field: "TotalSales", type: "quantitative", title: "Total Sales", format: ".2f" }
+                    ]
+                },
+                width: 900,
+                height: 500
+            };
+
+
+            vegaEmbed("#heatmap", heatSpec, { actions: false })
+                .then(() => console.log("Heatmap rendered"))
+                .catch(console.error);
+
+            // Visualization 2
+            function topListSpec(groupField, topN) {
+                const f = groupField;
+                return {
                     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                    data: { url: "/data/videogames_wide.csv" },
+                    data: { url: dataUrl },
                     transform: [
-                        // only keep those without null value
-                        { filter: "datum.Global_Sales != null && datum.Genre != null && datum.Platform != null" },
-                        {
-                            aggregate: [
-                                { op: "sum", field: "Global_Sales", as: "TotalSales" }
-                            ],
-                            groupby: ["Genre", "Platform"]
-                        }
+                        { filter: `datum.Global_Sales != null && datum['${f}'] != null` },
+                        { aggregate: [{ op: "sum", field: "Global_Sales", as: "Total" }], groupby: [f] },
+                        { window: [{ op: "rank", as: "rank" }], sort: [{ field: "Total", order: "descending" }] },
+                        { filter: `datum.rank <= ${topN}` }
                     ],
-                    mark: "rect",
+                    mark: "bar",
                     encoding: {
-                        x: { field: "Genre", type: "nominal", sort: "-y", axis: { labelAngle: -30 }, title: "Genre" },
-                        y: { field: "Platform", type: "nominal", sort: "-x", title: "Platform" },
-                        color: { field: "TotalSales", type: "quantitative", title: "Global Sales (M)" },
+                        y: { field: f, type: "nominal", sort: "-x", title: f },
+                        x: { field: "Total", type: "quantitative", title: "Total Global Sales (M)" },
+                        tooltip: [{ field: f }, { field: "Total", type: "quantitative", format: ".2f" }]
+                    },
+                    width: 900, height: 180
+                };
+            }
+
+            // 先在 JS 里读 CSV，计算每个组（Platform/Genre/Publisher）的总销量，返回前 N 名的组名数组
+            async function computeTopGroups(groupField, topN) {
+                // 用 vega 自带的 loader + read 解析 CSV
+                const text = await vega.loader().load(dataUrl);
+                const rows = vega.read(text, { type: "csv" });
+
+                const totals = new Map();
+                for (const r of rows) {
+                    const key = r[groupField];
+                    const sales = Number(r.Global_Sales);
+                    if (!key || !Number.isFinite(sales)) continue;
+                    totals.set(key, (totals.get(key) || 0) + sales);
+                }
+                return [...totals.entries()]
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, topN)
+                    .map(([name]) => name);
+            }
+
+
+
+            function unifiedTrendSpec(groupField, topGroups) {
+                const f = groupField; // "Platform" | "Genre" | "Publisher"
+
+                return {
+                    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+                    data: { url: dataUrl },
+                    transform: [
+                        // 严格清洗：组名存在、销量与年份都能转成有限数
+                        { filter: `datum['${f}'] != null && isFinite(toNumber(datum.Global_Sales)) && isFinite(toNumber(datum.Year))` },
+                        // 年份转四位整数
+                        { calculate: "floor(toNumber(datum.Year))", as: "YearInt" },
+                        // 只保留 JS 预先计算好的 Top N 组
+                        { filter: { field: f, oneOf: topGroups } },
+                        // 聚成【年份 × 组】的时间序列
+                        { aggregate: [{ op: "sum", field: "Global_Sales", as: "TotalSales" }], groupby: ["YearInt", f] }
+                    ],
+                    mark: { type: "line", point: true, interpolate: "monotone" },
+                    encoding: {
+                        x: { field: "YearInt", type: "quantitative", axis: { format: "d", tickMinStep: 1 }, title: "Year" },
+                        y: { field: "TotalSales", type: "quantitative", title: "Global Sales (M)" },
+                        color: { field: f, type: "nominal", title: f },
+                        detail: { field: f },                     // 明确“一组一条线”
+                        order: { field: "YearInt", type: "quantitative" }, // 按年份连线
                         tooltip: [
-                            { field: "Genre", title: "Genre" },
-                            { field: "Platform", title: "Platform" },
+                            { field: f, title: f },
+                            { field: "YearInt", title: "Year" },
                             { field: "TotalSales", type: "quantitative", title: "Total Sales", format: ".2f" }
-                        ]
+                        ],
+                        opacity: { condition: { param: "hl", value: 1 }, value: 0.8 }
+                    },
+                    params: [
+                        { name: "hl", select: { type: "point", fields: [f] }, bind: "legend" }
+                    ],
+                    width: 900,
+                    height: 420
+                };
+            }
+
+            let groupField = "Platform";
+            let topN2 = 8;
+
+            async function renderUnified() {
+                try {
+                    // 先渲染 TopList
+                    await vegaEmbed("#toplist-debug", topListSpec(groupField, topN2), { actions: false });
+
+                    // 计算当前分组字段的 TopN 名单
+                    const topGroups = await computeTopGroups(groupField, topN2);
+                    console.log("Top groups:", groupField, topGroups);
+
+                    // 用 oneOf 过滤这些组，按年份聚合画多条折线
+                    await vegaEmbed("#trend-unified", unifiedTrendSpec(groupField, topGroups), { actions: false });
+
+                    console.log("Unified trend rendered:", groupField, topN2);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            renderUnified();
+
+            document.getElementById("groupBy").addEventListener("change", e => {
+                groupField = e.target.value;
+                renderUnified();
+            });
+            document.getElementById("topN2").addEventListener("change", e => {
+                topN2 = parseInt(e.target.value, 10);
+                renderUnified();
+            });
+
+
+            // Visualization 3
+            const dataUrlLong = "/data/videogames_long.csv";
+
+            // 2) 读取 long 表并按“平台”汇总，计算 Top N 平台名单（稳健、可调试）
+            async function computeTopPlatformsLong(topN) {
+                const text = await vega.loader().load(dataUrlLong);
+                const rows = vega.read(text, { type: "csv" });
+
+                const totals = new Map();
+                for (const r of rows) {
+                    const p = r.platform;
+                    const v = Number(r.sales_amount);
+                    if (!p || !Number.isFinite(v)) continue;
+                    totals.set(p, (totals.get(p) || 0) + v);
+                }
+
+
+                return [...totals.entries()]
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, topN)
+                    .map(([name]) => name);
+            }
+
+            // 3) 统一地区标签：na_sales→NA, eu_sales→EU, jp_sales→JP, other_sales→Other
+            function normalizeRegionExpr() {
+                return "datum.sales_region == 'na_sales' ? 'NA' : " +
+                    "(datum.sales_region == 'eu_sales' ? 'EU' : " +
+                    "(datum.sales_region == 'jp_sales' ? 'JP' : " +
+                    "(datum.sales_region == 'other_sales' ? 'Other' : datum.sales_region)))";
+            }
+
+            // 4) 生成 Vega-Lite 规范：用 oneOf 过滤 Top 平台 → 聚合成【平台×地区】 → 画堆叠柱
+            function regionalByPlatformSpecLongWithList(topPlatforms, normalized = false) {
+                return {
+                    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+                    data: { url: dataUrlLong },
+                    transform: [
+                        // 清洗 + 区域名标准化
+                        { filter: "isValid(datum.platform) && isValid(datum.sales_region) && isFinite(toNumber(datum.sales_amount))" },
+                        { calculate: normalizeRegionExpr(), as: "Region" },
+
+                        // 用 JS 侧算好的 TopN 平台名单过滤
+                        { filter: { field: "platform", oneOf: topPlatforms } },
+
+                        // 聚成【平台 × 地区】绝对值
+                        { aggregate: [{ op: "sum", field: "sales_amount", as: "Total" }], groupby: ["platform", "Region"] },
+
+                        // 计算平台总量用于 x 轴排序（归一化图也用这个保证顺序一致）
+                        { joinaggregate: [{ op: "sum", field: "Total", as: "PlatformTotal" }], groupby: ["platform"] }
+                    ],
+                    mark: "bar",
+                    encoding: {
+                        x: {
+                            field: "platform", type: "nominal",
+                            sort: { field: "PlatformTotal", order: "descending" }, // 统一按平台总量排序
+                            title: "Platform", axis: { labelAngle: -30 }
+                        },
+                        y: normalized
+                            ? { field: "Total", type: "quantitative", stack: "normalize", title: "Share" }
+                            : { field: "Total", type: "quantitative", title: "Total Sales (M)" },
+                        color: {
+                            field: "Region", type: "nominal", title: "Region",
+                            scale: { domain: ["NA", "EU", "JP", "Other"] }          // 固定颜色顺序更稳定
+                        },
+                        tooltip: [
+                            { field: "platform", title: "Platform" },
+                            { field: "Region", title: "Region" },
+                            {
+                                field: "Total", type: "quantitative",
+                                title: normalized ? "Share" : "Total Sales",
+                                format: normalized ? ".0%" : ".2f"
+                            }
+                        ],
+                        order: { field: "Region" }
                     },
                     width: 900,
-                    height: 500
+                    height: 420
                 };
+            }
 
+            // 5) 渲染：先算 TopN 名单 → 再分别绘制“绝对值堆叠”和“100% 堆叠”
+            let topNReg = 8;
 
-                vegaEmbed("#heatmap", heatSpec, { actions: false })
-                    .then(() => console.log("Heatmap rendered"))
-                    .catch(console.error);
+            async function renderRegional() {
+                try {
+                    const topPlatforms = await computeTopPlatformsLong(topNReg);
+                    console.log("Top platforms (long):", topPlatforms);        // 调试：看平台名单
 
-                // Visualization 2
-                function topListSpec(groupField, topN) {
-                    const f = groupField;
-                    return {
-                        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                        data: { url: dataUrl },
-                        transform: [
-                            { filter: `datum.Global_Sales != null && datum['${f}'] != null` },
-                            { aggregate: [{ op: "sum", field: "Global_Sales", as: "Total" }], groupby: [f] },
-                            { window: [{ op: "rank", as: "rank" }], sort: [{ field: "Total", order: "descending" }] },
-                            { filter: `datum.rank <= ${topN}` }
-                        ],
-                        mark: "bar",
-                        encoding: {
-                            y: { field: f, type: "nominal", sort: "-x", title: f },
-                            x: { field: "Total", type: "quantitative", title: "Total Global Sales (M)" },
-                            tooltip: [{ field: f }, { field: "Total", type: "quantitative", format: ".2f" }]
-                        },
-                        width: 900, height: 180
-                    };
+                    await vegaEmbed(
+                        "#region-platform-abs",
+                        regionalByPlatformSpecLongWithList(topPlatforms, false),
+                        { actions: false }
+                    );
+
+                    await vegaEmbed(
+                        "#region-platform-shr",
+                        regionalByPlatformSpecLongWithList(topPlatforms, true),
+                        { actions: false }
+                    );
+
+                    console.log("Regional charts rendered, topN =", topNReg);
+                } catch (err) {
+                    console.error("Regional charts error:", err);
                 }
+            }
 
-                // 先在 JS 里读 CSV，计算每个组（Platform/Genre/Publisher）的总销量，返回前 N 名的组名数组
-                async function computeTopGroups(groupField, topN) {
-                    // 用 vega 自带的 loader + read 解析 CSV
-                    const text = await vega.loader().load(dataUrl);
-                    const rows = vega.read(text, { type: "csv" });
-
-                    const totals = new Map();
-                    for (const r of rows) {
-                        const key = r[groupField];
-                        const sales = Number(r.Global_Sales);
-                        if (!key || !Number.isFinite(sales)) continue;
-                        totals.set(key, (totals.get(key) || 0) + sales);
-                    }
-                    return [...totals.entries()]
-                        .sort((a, b) => b[1] - a[1])
-                        .slice(0, topN)
-                        .map(([name]) => name);
-                }
-
-
-
-                function unifiedTrendSpec(groupField, topGroups) {
-                    const f = groupField; // "Platform" | "Genre" | "Publisher"
-
-                    return {
-                        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                        data: { url: dataUrl },
-                        transform: [
-                            // 严格清洗：组名存在、销量与年份都能转成有限数
-                            { filter: `datum['${f}'] != null && isFinite(toNumber(datum.Global_Sales)) && isFinite(toNumber(datum.Year))` },
-                            // 年份转四位整数
-                            { calculate: "floor(toNumber(datum.Year))", as: "YearInt" },
-                            // 只保留 JS 预先计算好的 Top N 组
-                            { filter: { field: f, oneOf: topGroups } },
-                            // 聚成【年份 × 组】的时间序列
-                            { aggregate: [{ op: "sum", field: "Global_Sales", as: "TotalSales" }], groupby: ["YearInt", f] }
-                        ],
-                        mark: { type: "line", point: true, interpolate: "monotone" },
-                        encoding: {
-                            x: { field: "YearInt", type: "quantitative", axis: { format: "d", tickMinStep: 1 }, title: "Year" },
-                            y: { field: "TotalSales", type: "quantitative", title: "Global Sales (M)" },
-                            color: { field: f, type: "nominal", title: f },
-                            detail: { field: f },                     // 明确“一组一条线”
-                            order: { field: "YearInt", type: "quantitative" }, // 按年份连线
-                            tooltip: [
-                                { field: f, title: f },
-                                { field: "YearInt", title: "Year" },
-                                { field: "TotalSales", type: "quantitative", title: "Total Sales", format: ".2f" }
-                            ],
-                            opacity: { condition: { param: "hl", value: 1 }, value: 0.8 }
-                        },
-                        params: [
-                            { name: "hl", select: { type: "point", fields: [f] }, bind: "legend" }
-                        ],
-                        width: 900,
-                        height: 420
-                    };
-                }
-
-                let groupField = "Platform";
-                let topN2 = 8;
-
-                async function renderUnified() {
-                    try {
-                        // 先渲染 TopList（可保留你原来的）
-                        await vegaEmbed("#toplist-debug", topListSpec(groupField, topN2), { actions: false });
-
-                        // 计算当前分组字段的 TopN 名单
-                        const topGroups = await computeTopGroups(groupField, topN2);
-                        console.log("Top groups:", groupField, topGroups);
-
-                        // 用 oneOf 过滤这些组，按年份聚合画多条折线
-                        await vegaEmbed("#trend-unified", unifiedTrendSpec(groupField, topGroups), { actions: false });
-
-                        console.log("Unified trend rendered:", groupField, topN2);
-                    } catch (e) {
-                        console.error(e);
-                    }
-                }
-                renderUnified();
-
-                document.getElementById("groupBy").addEventListener("change", e => {
-                    groupField = e.target.value;
-                    renderUnified();
-                });
-                document.getElementById("topN2").addEventListener("change", e => {
-                    topN2 = parseInt(e.target.value, 10);
-                    renderUnified();
-                });
-
-
-                // Visualization 3
-                const dataUrlLong = "/data/videogames_long.csv";
-
-                // 2) 读取 long 表并按“平台”汇总，计算 Top N 平台名单（稳健、可调试）
-                async function computeTopPlatformsLong(topN) {
-                    const text = await vega.loader().load(dataUrlLong);         // 读取 CSV 文本
-                    const rows = vega.read(text, { type: "csv" });               // 解析为对象数组
-
-                    const totals = new Map();
-                    for (const r of rows) {
-                        const p = r.platform;
-                        const v = Number(r.sales_amount);
-                        if (!p || !Number.isFinite(v)) continue;                   // 清洗：平台存在且数值有效
-                        totals.set(p, (totals.get(p) || 0) + v);                   // 按平台累计销量
-                    }
-
-                    // 排序取前 N → 返回平台名数组（供 oneOf 过滤）
-                    return [...totals.entries()]
-                        .sort((a, b) => b[1] - a[1])
-                        .slice(0, topN)
-                        .map(([name]) => name);
-                }
-
-                // 3) 统一地区标签：na_sales→NA, eu_sales→EU, jp_sales→JP, other_sales→Other
-                function normalizeRegionExpr() {
-                    return "datum.sales_region == 'na_sales' ? 'NA' : " +
-                        "(datum.sales_region == 'eu_sales' ? 'EU' : " +
-                        "(datum.sales_region == 'jp_sales' ? 'JP' : " +
-                        "(datum.sales_region == 'other_sales' ? 'Other' : datum.sales_region)))";
-                }
-
-                // 4) 生成 Vega-Lite 规范：用 oneOf 过滤 Top 平台 → 聚合成【平台×地区】 → 画堆叠柱
-                function regionalByPlatformSpecLongWithList(topPlatforms, normalized = false) {
-                    return {
-                        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                        data: { url: dataUrlLong },
-                        transform: [
-                            // 清洗 + 区域名标准化
-                            { filter: "isValid(datum.platform) && isValid(datum.sales_region) && isFinite(toNumber(datum.sales_amount))" },
-                            { calculate: normalizeRegionExpr(), as: "Region" },
-
-                            // 用 JS 侧算好的 TopN 平台名单过滤
-                            { filter: { field: "platform", oneOf: topPlatforms } },
-
-                            // 聚成【平台 × 地区】绝对值
-                            { aggregate: [{ op: "sum", field: "sales_amount", as: "Total" }], groupby: ["platform", "Region"] },
-
-                            // 计算平台总量用于 x 轴排序（归一化图也用这个保证顺序一致）
-                            { joinaggregate: [{ op: "sum", field: "Total", as: "PlatformTotal" }], groupby: ["platform"] }
-                        ],
-                        mark: "bar",
-                        encoding: {
-                            x: {
-                                field: "platform", type: "nominal",
-                                sort: { field: "PlatformTotal", order: "descending" }, // 统一按平台总量排序
-                                title: "Platform", axis: { labelAngle: -30 }
-                            },
-                            y: normalized
-                                ? { field: "Total", type: "quantitative", stack: "normalize", title: "Share" }
-                                : { field: "Total", type: "quantitative", title: "Total Sales (M)" },
-                            color: {
-                                field: "Region", type: "nominal", title: "Region",
-                                scale: { domain: ["NA", "EU", "JP", "Other"] }          // 固定颜色顺序更稳定
-                            },
-                            tooltip: [
-                                { field: "platform", title: "Platform" },
-                                { field: "Region", title: "Region" },
-                                {
-                                    field: "Total", type: "quantitative",
-                                    title: normalized ? "Share" : "Total Sales",
-                                    format: normalized ? ".0%" : ".2f"
-                                }
-                            ],
-                            order: { field: "Region" }
-                        },
-                        width: 900,
-                        height: 420
-                    };
-                }
-
-                // 5) 渲染：先算 TopN 名单 → 再分别绘制“绝对值堆叠”和“100% 堆叠”
-                let topNReg = 8;
-
-                async function renderRegional() {
-                    try {
-                        const topPlatforms = await computeTopPlatformsLong(topNReg);
-                        console.log("Top platforms (long):", topPlatforms);        // 调试：看平台名单
-
-                        await vegaEmbed(
-                            "#region-platform-abs",
-                            regionalByPlatformSpecLongWithList(topPlatforms, false),
-                            { actions: false }
-                        );
-
-                        await vegaEmbed(
-                            "#region-platform-shr",
-                            regionalByPlatformSpecLongWithList(topPlatforms, true),
-                            { actions: false }
-                        );
-
-                        console.log("Regional charts rendered, topN =", topNReg);
-                    } catch (err) {
-                        console.error("Regional charts error:", err);
-                    }
-                }
-
-                // 6) 首次渲染 + 监听下拉
+            // 6) 首次渲染 + 监听下拉
+            renderRegional();
+            document.getElementById("topN-reg").addEventListener("change", e => {
+                topNReg = parseInt(e.target.value, 10);
                 renderRegional();
-                document.getElementById("topN-reg").addEventListener("change", e => {
-                    topNReg = parseInt(e.target.value, 10);
-                    renderRegional();
-                });
+            });
 
 
 
 
 
-                // === Visualization 4: Favorite Genres by Region ===
-                // 说明：基于 wide 表（dataUrl），只用 NA/EU/JP 三列，Other 可加也可不加。
-                // 画法：三列小 multiples（facet），每列一个区域，显示该区域 Top N 的类型条形。
+            // === Visualization 4: Favorite Genres by Region ===
+            // 说明：基于 wide 表（dataUrl），只用 NA/EU/JP 三列，Other 可加也可不加。
+            // 画法：三列小 multiples（facet），每列一个区域，显示该区域 Top N 的类型条形。
 
-                function genresByRegionSpec(topN = 8, metric = "share") {
-                    const valueField = (metric === "total") ? "Total" : "Share";
-                    const xEnc = (metric === "total")
-                        ? { field: "Total", type: "quantitative", title: "Sales (M)" }
-                        : { field: "Share", type: "quantitative", title: "Share", axis: { format: ".0%" } };
+            function genresByRegionSpec(topN = 8, metric = "share") {
+                const valueField = (metric === "total") ? "Total" : "Share";
+                const xEnc = (metric === "total")
+                    ? { field: "Total", type: "quantitative", title: "Sales (M)" }
+                    : { field: "Share", type: "quantitative", title: "Share", axis: { format: ".0%" } };
 
-                    return {
-                        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                        data: { url: dataUrl },
-                        transform: [
-                            // 1) 只保留 Genre 有值的记录
-                            { filter: "datum.Genre != null" },
+                return {
+                    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+                    data: { url: dataUrl },
+                    transform: [
+                        // 1) 只保留 Genre 有值的记录
+                        { filter: "datum.Genre != null" },
 
-                            // 2) 把 3 个区域销量旋转成长表
-                            { fold: ["NA_Sales", "EU_Sales", "JP_Sales"], as: ["RegionField", "SalesRaw"] },
-                            { calculate: "toNumber(datum.SalesRaw)", as: "SalesNum" },
-                            { filter: "isFinite(datum.SalesNum)" },
+                        // 2) 把 3 个区域销量旋转成长表
+                        { fold: ["NA_Sales", "EU_Sales", "JP_Sales"], as: ["RegionField", "SalesRaw"] },
+                        { calculate: "toNumber(datum.SalesRaw)", as: "SalesNum" },
+                        { filter: "isFinite(datum.SalesNum)" },
 
-                            // 3) 把 'NA_Sales' → 'NA'
-                            { calculate: "replace(datum.RegionField, '_Sales', '')", as: "Region" },
+                        // 3) 把 'NA_Sales' → 'NA'
+                        { calculate: "replace(datum.RegionField, '_Sales', '')", as: "Region" },
 
-                            // 4) 聚成【Region × Genre】绝对值
-                            { aggregate: [{ op: "sum", field: "SalesNum", as: "Total" }], groupby: ["Region", "Genre"] },
+                        // 4) 聚成【Region × Genre】绝对值
+                        { aggregate: [{ op: "sum", field: "SalesNum", as: "Total" }], groupby: ["Region", "Genre"] },
 
-                            // 5) 区域内份额（用来看偏好）
-                            { joinaggregate: [{ op: "sum", field: "Total", as: "RegionTotal" }], groupby: ["Region"] },
-                            { calculate: "datum.RegionTotal > 0 ? datum.Total / datum.RegionTotal : 0", as: "Share" },
+                        // 5) 区域内份额（用来看偏好）
+                        { joinaggregate: [{ op: "sum", field: "Total", as: "RegionTotal" }], groupby: ["Region"] },
+                        { calculate: "datum.RegionTotal > 0 ? datum.Total / datum.RegionTotal : 0", as: "Share" },
 
-                            // 6) 每个区域内部做 Top N 排名（按选择的度量）
-                            { window: [{ op: "rank", as: "r" }], groupby: ["Region"], sort: [{ field: valueField, order: "descending" }] },
-                            { filter: `datum.r <= ${topN}` }
-                        ],
+                        // 6) 每个区域内部做 Top N 排名（按选择的度量）
+                        { window: [{ op: "rank", as: "r" }], groupby: ["Region"], sort: [{ field: valueField, order: "descending" }] },
+                        { filter: `datum.r <= ${topN}` }
+                    ],
 
-                        // 小 multiples：每列一个区域
-                        facet: { field: "Region", type: "nominal", columns: 3, title: null },
+                    // 小 multiples：每列一个区域
+                    facet: { field: "Region", type: "nominal", columns: 3, title: null },
 
-                        spec: {
-                            mark: "bar",
-                            encoding: {
-                                y: { field: "Genre", type: "nominal", sort: "-x", title: null },
-                                x: xEnc,
-                                color: { field: "Genre", type: "nominal", legend: null },
-                                tooltip: [
-                                    { field: "Region", title: "Region" },
-                                    { field: "Genre", title: "Genre" },
-                                    { field: "Total", type: "quantitative", title: "Sales (M)", format: ".2f" },
-                                    { field: "Share", type: "quantitative", title: "Share", format: ".0%" }
-                                ]
-                            },
-                            width: 300,
-                            height: { step: 18 }
-                        }
-                    };
-                }
+                    spec: {
+                        mark: "bar",
+                        encoding: {
+                            y: { field: "Genre", type: "nominal", sort: "-x", title: null },
+                            x: xEnc,
+                            color: { field: "Genre", type: "nominal", legend: null },
+                            tooltip: [
+                                { field: "Region", title: "Region" },
+                                { field: "Genre", title: "Genre" },
+                                { field: "Total", type: "quantitative", title: "Sales (M)", format: ".2f" },
+                                { field: "Share", type: "quantitative", title: "Share", format: ".0%" }
+                            ]
+                        },
+                        width: 300,
+                        height: { step: 18 }
+                    }
+                };
+            }
 
-                let topNGR = 8;
-                let metricGR = "share";
+            let topNGR = 8;
+            let metricGR = "share";
 
-                function renderGenresByRegion() {
-                    vegaEmbed("#genres-by-region", genresByRegionSpec(topNGR, metricGR), { actions: false })
-                        .then(() => console.log("Genres-by-region rendered:", metricGR, topNGR))
-                        .catch(console.error);
-                }
+            function renderGenresByRegion() {
+                vegaEmbed("#genres-by-region", genresByRegionSpec(topNGR, metricGR), { actions: false })
+                    .then(() => console.log("Genres-by-region rendered:", metricGR, topNGR))
+                    .catch(console.error);
+            }
+            renderGenresByRegion();
+
+            document.getElementById("metric-gr").addEventListener("change", e => {
+                metricGR = e.target.value;
                 renderGenresByRegion();
-
-                document.getElementById("metric-gr").addEventListener("change", e => {
-                    metricGR = e.target.value;
-                    renderGenresByRegion();
-                });
-                document.getElementById("topN-gr").addEventListener("change", e => {
-                    topNGR = parseInt(e.target.value, 10);
-                    renderGenresByRegion();
-                });
+            });
+            document.getElementById("topN-gr").addEventListener("change", e => {
+                topNGR = parseInt(e.target.value, 10);
+                renderGenresByRegion();
+            });
 
 
 
 
-            </script>
+        </script>
 
 </body>
 
