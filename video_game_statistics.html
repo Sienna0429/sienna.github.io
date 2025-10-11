@@ -47,10 +47,19 @@
     <section class="reflection-chart-card">
         <h3 class="chart-title">Reflection</h3>
         <p class="note">
-            Look for dominant platforms within each genre. Portable platforms like DS often show strong counts in family
-            and casual genres.
-            Genres such as Action and Sports tend to dominate overall sales.
-            If the stack is heavily concentrated in a few colors it suggests platform concentration within genres.
+            This heatmap compares global sales across different genres and platforms, helping reveal both overall
+            popularity and
+            platform-genre relationships.
+            From a genre perspective, Action and Sports clearly dominate global sales, followed by Shooter and Role
+            Playing, showing
+            that fast paced and competitive genres have broader market appeal.
+            From a platform perspective, PS2, Wii, and DS stand out with deeper colors, indicating that they hosted a
+            large number
+            of best selling titles. The concentration of color also shows how certain platforms became dominant within
+            specific
+            genres, for example, DS in Puzzle and Wii in Sports.
+            The heatmap design uses color intensity to make it easy to see which platforms and genres lead the market at
+            a glance.
         </p>
     </section>
 
@@ -84,13 +93,54 @@
     <section class="reflection-chart-card">
         <h3 class="chart-title">Reflection</h3>
         <p class="note">
-            Sales peak around 2008-2009, driven by the Wii/DS/X360/PS3 era; PS2 leads in total due to its long
-            lifecycle. Action and
-            Sports are consistently strong, with Shooter spiking ~2007-2011. Publishers (Nintendo, EA, Activision)
-            largely track
-            platform cycles. The post-2012 “decline” mostly reflects the shift from physical retail to digital (data
-            coverage), not
-            necessarily a real market contraction.
+            When grouping by platform, the line chart shows how video game sales evolved over time.
+            From a platform lifecycle perspective, PS2 clearly has the longest and strongest lifespan, peaking in the
+            early 2000s
+            and maintaining high sales for many years. This reflects its broad user base and strong third party support.
+            From a generational perspective, we can see a clear transition between console generations. The peaks of
+            PS2, X360, and
+            PS3 overlap around 2008 to 2010, marking a time when multiple major platforms were competing at their
+            highest
+            performance.
+            From a market trend perspective, the overall decline after 2012 suggests a shift away from physical game
+            sales toward
+            digital distribution, rather than an actual drop in player interest.
+            This view helps connect historical console launches to market performance, showing how each generation
+            rises, peaks, and
+            eventually fades as new technology arrives.
+
+            When grouping by genre, the chart shows how the popularity of different types of games has changed over
+            time.
+            From a popularity perspective, Action and Sports games dominate global sales, showing that players
+            consistently enjoy
+            fast paced and competitive gameplay. Shooter games also show a clear rise between 2005 and 2012, matching
+            the success of
+            series like Call of Duty and Halo during that time.
+            From a diversity perspective, the lines for Role Playing, Platform, and Simulation genres are smaller but
+            steady,
+            showing that these types maintain loyal audiences even when they are not the top sellers.
+            From a market evolution perspective, we can see how the rise of realistic graphics and online play helped
+            Action and
+            Shooter genres grow rapidly after 2000. Around 2015, sales for all genres decline, again likely due to the
+            shift to
+            digital distribution rather than a drop in demand.
+            When grouping by publisher, this chart reveals how different companies have influenced the gaming market
+            over time.
+            From a market leadership perspective, Nintendo clearly dominates with the highest total sales and visible
+            peaks during
+            console launches such as the Wii and DS era around 2006. Its consistent performance reflects its strong
+            first party
+            titles and stable hardware ecosystem.
+            From a competition perspective, Electronic Arts and Activision follow closely behind, showing that third
+            party
+            publishers with diverse franchises also play a major role. Their peaks during 2008 to 2012 align with the
+            rise of series
+            like FIFA, Call of Duty, and Battlefield.
+            From a historical trend perspective, after 2012, most publishers show a gradual decline, suggesting the
+            impact of
+            digital sales and independent game publishing. This visualization helps illustrate how publisher influence
+            changes over
+            decades and how business strategies evolve alongside technology shifts.
         </p>
     </section>
 
@@ -122,15 +172,21 @@
     <section class="reflection-chart-card">
         <h3 class="chart-title">Reflection</h3>
         <p class="note">
-            The regional split shows clear preferences: North America (NA) leans toward home consoles with a notably
-            higher share
-            for X360; Europe (EU) favors PlayStation (PS2/PS3) with a more balanced distribution; Japan (JP) is more
-            handheld- and
-            Nintendo-friendly, where DS and PSP take a much larger share and Xbox is weakest. The Other region is
-            relatively small
-            for most platforms. In short, NA/EU skew toward living-room consoles, while JP favors handhelds and Nintendo
-            titles.
-            (Note: data is mainly physical retail, which may understate later digital sales.)
+            From the absolute sales chart, we can see that PlayStation 2, Xbox 360, and PlayStation 3 were the top
+            selling platforms
+            worldwide. North America contributed the largest portion for most consoles, especially Xbox and PlayStation
+            models,
+            which reflects the strong console market in that region. Nintendo's platforms like Wii and DS also performed
+            well
+            globally, supported by strong family and casual game audiences.
+
+            From the regional share chart, regional preferences become clearer. Japan shows much higher proportions for
+            handheld
+            devices such as DS, PSP, and 3DS, while Europe's distribution is more balanced across PlayStation
+            generations. North
+            America dominates the console market overall, but Japan's strong handheld trend highlights cultural and
+            lifestyle
+            differences in gaming habits.
         </p>
 
         <!-- Visualization 4 Story -->
@@ -163,13 +219,21 @@
         <section class="reflection-chart-card">
             <h3 class="chart-title">Reflection</h3>
             <p class="note">
-                The small multiples show clear regional tastes: North America (NA) skews toward Action/Shooter, Europe
-                (EU) balances
-                Sports/Action, while Japan (JP) favors RPG/Platform/Puzzle—consistent with Nintendo/handheld ecosystems.
-                Viewing by
-                share highlights preferences; switching to total reminds us that even when JP has higher shares for
-                certain genres,
-                overall volumes often remain below NA/EU.
+                From the regional comparison perspective, clear differences emerge among North America, Europe, and
+                Japan. North America
+                and Europe both favor Action and Sports games, with Shooter also ranking high in North America. These
+                genres align with
+                Western markets‘ focus on competitive and fast-paced gameplay. Japan, however, shows a strong preference
+                for
+                Role-Playing and Platform games, which reflects the success of series like Pokémon and Super Mario.
+
+                From the cultural preference perspective, the chart reveals how gaming culture shapes regional markets.
+                Western players
+                tend to prefer realism and competition, while Japanese players value narrative-driven and
+                character-based experiences.
+                This difference not only reflects genre taste but also connects to hardware preferences seen
+                earlier—Japan’s handheld
+                consoles support more story-based and casual games.
             </p>
 
             <script>
@@ -177,8 +241,9 @@
 
                 const heatSpec = {
                     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                    data: { url: "/data/videogames_wide.csv" }, // 若已定义 dataUrl，可改为 data: { url: dataUrl }
+                    data: { url: "/data/videogames_wide.csv" },
                     transform: [
+                        // only keep those without null value
                         { filter: "datum.Global_Sales != null && datum.Genre != null && datum.Platform != null" },
                         {
                             aggregate: [
@@ -321,52 +386,71 @@
 
 
                 // Visualization 3
-                // === Visualization 3 (Wide 版) ===
-                // 用 wide 表：/data/videogames_wide.csv ；Top N 平台仍然用 computeTopGroups 计算
+                const dataUrlLong = "/data/videogames_long.csv";
 
-                function regionalByPlatformSpecWide(topPlatforms, normalized = false) {
+                // 2) 读取 long 表并按“平台”汇总，计算 Top N 平台名单（稳健、可调试）
+                async function computeTopPlatformsLong(topN) {
+                    const text = await vega.loader().load(dataUrlLong);         // 读取 CSV 文本
+                    const rows = vega.read(text, { type: "csv" });               // 解析为对象数组
+
+                    const totals = new Map();
+                    for (const r of rows) {
+                        const p = r.platform;
+                        const v = Number(r.sales_amount);
+                        if (!p || !Number.isFinite(v)) continue;                   // 清洗：平台存在且数值有效
+                        totals.set(p, (totals.get(p) || 0) + v);                   // 按平台累计销量
+                    }
+
+                    // 排序取前 N → 返回平台名数组（供 oneOf 过滤）
+                    return [...totals.entries()]
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, topN)
+                        .map(([name]) => name);
+                }
+
+                // 3) 统一地区标签：na_sales→NA, eu_sales→EU, jp_sales→JP, other_sales→Other
+                function normalizeRegionExpr() {
+                    return "datum.sales_region == 'na_sales' ? 'NA' : " +
+                        "(datum.sales_region == 'eu_sales' ? 'EU' : " +
+                        "(datum.sales_region == 'jp_sales' ? 'JP' : " +
+                        "(datum.sales_region == 'other_sales' ? 'Other' : datum.sales_region)))";
+                }
+
+                // 4) 生成 Vega-Lite 规范：用 oneOf 过滤 Top 平台 → 聚合成【平台×地区】 → 画堆叠柱
+                function regionalByPlatformSpecLongWithList(topPlatforms, normalized = false) {
                     return {
                         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                        data: { url: dataUrl }, // 直接用 wide 表
+                        data: { url: dataUrlLong },
                         transform: [
-                            // 先只保留 Top N 平台
-                            { filter: { field: "Platform", oneOf: topPlatforms } },
+                            // 清洗 + 区域名标准化
+                            { filter: "isValid(datum.platform) && isValid(datum.sales_region) && isFinite(toNumber(datum.sales_amount))" },
+                            { calculate: normalizeRegionExpr(), as: "Region" },
 
-                            // 把 4 个区域销量列“旋转成长表”
-                            {
-                                fold: ["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"],
-                                as: ["RegionField", "SalesRaw"]
-                            },
+                            // 用 JS 侧算好的 TopN 平台名单过滤
+                            { filter: { field: "platform", oneOf: topPlatforms } },
 
-                            // 转数值并清洗
-                            { calculate: "toNumber(datum.SalesRaw)", as: "SalesNum" },
-                            { filter: "isFinite(datum.SalesNum)" },
+                            // 聚成【平台 × 地区】绝对值
+                            { aggregate: [{ op: "sum", field: "sales_amount", as: "Total" }], groupby: ["platform", "Region"] },
 
-                            // 把 'NA_Sales' → 'NA' 这样的区域名
-                            { calculate: "replace(datum.RegionField, '_Sales', '')", as: "Region" },
-
-                            // 聚成【平台 × 区域】
-                            {
-                                aggregate: [{ op: "sum", field: "SalesNum", as: "Total" }],
-                                groupby: ["Platform", "Region"]
-                            }
+                            // 计算平台总量用于 x 轴排序（归一化图也用这个保证顺序一致）
+                            { joinaggregate: [{ op: "sum", field: "Total", as: "PlatformTotal" }], groupby: ["platform"] }
                         ],
                         mark: "bar",
                         encoding: {
                             x: {
-                                field: "Platform", type: "nominal",
-                                sort: "-y", title: "Platform", axis: { labelAngle: -30 }
+                                field: "platform", type: "nominal",
+                                sort: { field: "PlatformTotal", order: "descending" }, // 统一按平台总量排序
+                                title: "Platform", axis: { labelAngle: -30 }
                             },
                             y: normalized
                                 ? { field: "Total", type: "quantitative", stack: "normalize", title: "Share" }
                                 : { field: "Total", type: "quantitative", title: "Total Sales (M)" },
                             color: {
                                 field: "Region", type: "nominal", title: "Region",
-                                // 固定颜色顺序，避免刷新抖动
-                                scale: { domain: ["NA", "EU", "JP", "Other"] }
+                                scale: { domain: ["NA", "EU", "JP", "Other"] }          // 固定颜色顺序更稳定
                             },
                             tooltip: [
-                                { field: "Platform", title: "Platform" },
+                                { field: "platform", title: "Platform" },
                                 { field: "Region", title: "Region" },
                                 {
                                     field: "Total", type: "quantitative",
@@ -381,32 +465,42 @@
                     };
                 }
 
-                // 渲染（先算 Top N 平台名单，再画两张图：绝对值 & 占比）
+                // 5) 渲染：先算 TopN 名单 → 再分别绘制“绝对值堆叠”和“100% 堆叠”
                 let topNReg = 8;
 
                 async function renderRegional() {
                     try {
-                        const topPlatforms = await computeTopGroups("Platform", topNReg);
-                        // 绝对值堆叠
-                        await vegaEmbed("#region-platform-abs",
-                            regionalByPlatformSpecWide(topPlatforms, false),
-                            { actions: false });
-                        // 100% 堆叠
-                        await vegaEmbed("#region-platform-shr",
-                            regionalByPlatformSpecWide(topPlatforms, true),
-                            { actions: false });
+                        const topPlatforms = await computeTopPlatformsLong(topNReg);
+                        console.log("Top platforms (long):", topPlatforms);        // 调试：看平台名单
 
-                        console.log("Regional charts rendered. Top platforms:", topPlatforms);
-                    } catch (e) {
-                        console.error(e);
+                        await vegaEmbed(
+                            "#region-platform-abs",
+                            regionalByPlatformSpecLongWithList(topPlatforms, false),
+                            { actions: false }
+                        );
+
+                        await vegaEmbed(
+                            "#region-platform-shr",
+                            regionalByPlatformSpecLongWithList(topPlatforms, true),
+                            { actions: false }
+                        );
+
+                        console.log("Regional charts rendered, topN =", topNReg);
+                    } catch (err) {
+                        console.error("Regional charts error:", err);
                     }
                 }
-                renderRegional();
 
+                // 6) 首次渲染 + 监听下拉
+                renderRegional();
                 document.getElementById("topN-reg").addEventListener("change", e => {
                     topNReg = parseInt(e.target.value, 10);
                     renderRegional();
                 });
+
+
+
+
 
                 // === Visualization 4: Favorite Genres by Region ===
                 // 说明：基于 wide 表（dataUrl），只用 NA/EU/JP 三列，Other 可加也可不加。
