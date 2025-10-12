@@ -407,7 +407,6 @@
                     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
                     data: { url: dataUrlLong },
                     transform: [
-
                         { filter: "isValid(datum.platform) && isValid(datum.sales_region) && isFinite(toNumber(datum.sales_amount))" },
                         { calculate: normalizeRegionExpr(), as: "Region" },
 
@@ -418,7 +417,10 @@
                         { aggregate: [{ op: "sum", field: "sales_amount", as: "Total" }], groupby: ["platform", "Region"] },
 
 
-                        { joinaggregate: [{ op: "sum", field: "Total", as: "PlatformTotal" }], groupby: ["platform"] }
+                        { joinaggregate: [{ op: "sum", field: "Total", as: "PlatformTotal" }], groupby: ["platform"] },
+
+
+                        { calculate: "datum.PlatformTotal > 0 ? datum.Total / datum.PlatformTotal : 0", as: "Share" }
                     ],
                     mark: "bar",
                     encoding: {
@@ -427,28 +429,35 @@
                             sort: { field: "PlatformTotal", order: "descending" },
                             title: "Platform", axis: { labelAngle: -30 }
                         },
+
                         y: normalized
                             ? { field: "Total", type: "quantitative", stack: "normalize", title: "Share" }
                             : { field: "Total", type: "quantitative", title: "Total Sales (M)" },
+
                         color: {
                             field: "Region", type: "nominal", title: "Region",
                             scale: { domain: ["NA", "EU", "JP", "Other"] }
                         },
-                        tooltip: [
-                            { field: "platform", title: "Platform" },
-                            { field: "Region", title: "Region" },
-                            {
-                                field: "Total", type: "quantitative",
-                                title: normalized ? "Share" : "Total Sales",
-                                format: normalized ? ".0%" : ".2f"
-                            }
-                        ],
+
+                        tooltip: normalized
+                            ? [
+                                { field: "platform", title: "Platform" },
+                                { field: "Region", title: "Region" },
+                                { field: "Share", type: "quantitative", title: "Share", format: ".0%" }
+                            ]
+                            : [
+                                { field: "platform", title: "Platform" },
+                                { field: "Region", title: "Region" },
+                                { field: "Total", type: "quantitative", title: "Total Sales", format: ".2f" }
+                            ],
+
                         order: { field: "Region" }
                     },
                     width: 900,
                     height: 420
                 };
             }
+
 
             let topNReg = 8;
 
