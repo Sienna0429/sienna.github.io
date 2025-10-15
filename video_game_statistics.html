@@ -231,11 +231,11 @@
         </p>
 
         <script>
-            const dataUrl = "/data/videogames_wide.csv";
+            const dataUrl = "data/videogames_wide.csv";
 
             const heatSpec = {
                 $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-                data: { url: "/data/videogames_wide.csv" },
+                data: { url: "data/videogames_wide.csv" },
                 transform: [
                     // only keep those without null value
                     { filter: "datum.Global_Sales != null && datum.Genre != null && datum.Platform != null" },
@@ -374,7 +374,7 @@
 
 
             // Visualization 3
-            const dataUrlLong = "/data/videogames_long.csv";
+            const dataUrlLong = "data/videogames_long.csv";
 
             async function computeTopPlatformsLong(topN) {
                 const text = await vega.loader().load(dataUrlLong);
